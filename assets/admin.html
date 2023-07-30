@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+  </head>
+  <body>
+    <h3>Link Shortener | admin</h3>
+    <input type="text" id="linkurl" placeholder="URL" />
+    <input type="text" id="linkcode" placeholder="Id" />
+    <button id="linkadd">Add Link</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>URL</th>
+          <th>Clicks</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="links"></tbody>
+    </table>
+  </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", updateTable);
+
+    document.getElementById("linkadd").addEventListener("click", async () => {
+      const url = document.getElementById("linkurl").value;
+      const id = document.getElementById("linkcode").value;
+
+      if (!url || !id) {
+        return alert("Please enter a URL and an id");
+      }
+
+      fetch("/admin/links", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          url,
+          id,
+        }),
+      });
+
+        updateTable();
+    });
+
+    async function updateTable() {
+      const links = await fetch("/admin/links").then((res) => res.json());
+      const table = document.getElementById("links");
+
+      table.innerHTML = "";
+
+      links.forEach((link) => {
+        const row = document.createElement("tr");
+        const id = document.createElement("td");
+        const url = document.createElement("td");
+        const clicks = document.createElement("td");
+        const del = document.createElement("td");
+
+        url.innerText = link.url;
+        id.innerText = link.id;
+        clicks.innerText = link.uses;
+        del.innerHTML = `<button onclick="deleteLink('${link.id}')">Delete</button>`;
+
+        row.appendChild(url);
+        row.appendChild(id);
+        row.appendChild(clicks);
+        row.appendChild(del);
+
+        table.appendChild(row);
+      });
+    }
+
+    async function deleteLink(id) {
+      await fetch(`/admin/links/${id}`, {
+        method: "DELETE",
+      });
+
+      updateTable();
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: 333;
+      color: #fff;
+      font-family: sans-serif;
+      font-size: 1.5rem;
+    }
+
+    button {
+      background-color: #fff;
+      border: 0;
+      border-radius: 0.25rem;
+      color: #555;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #efefef;
+    }
+
+    input {
+      background-color: #fff;
+      border: 0;
+      border-radius: 0.25rem;
+      color: #555;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
+
+    input:focus {
+      outline: 2px solid #fff;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 0 auto;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    th,
+    td {
+      border: 1px solid #fff;
+      padding: 0.5rem;
+    }
+
+    th {
+      background-color: #555;
+      font-weight: bold;
+      text-align: left;
+    }
+  </style>
+</html>
