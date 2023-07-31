@@ -46,7 +46,7 @@
         }),
       });
 
-        updateTable();
+      updateTable();
     });
 
     async function updateTable() {
@@ -139,6 +139,19 @@
       background-color: #555;
       font-weight: bold;
       text-align: left;
+    }
+
+    @media screen and (max-width: 768px) {
+      body {
+        font-size: 1rem;
+      }
+
+      /* Stack the columns on small devices */
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
     }
   </style>
 </html>
