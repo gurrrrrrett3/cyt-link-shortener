@@ -14,9 +14,18 @@
   </body>
 
   <style>
+    * {
+      --color-bg-dark: rgb(13, 14, 14);
+      --color-bg: rgb(24, 26, 27);
+      --color-bg-alt1: rgb(33, 36, 37);
+      --color-bg-alt2: rgb(48, 52, 54);
+      --color-bg-alt3: rgb(64, 69, 72);
+      --color-fg: rgb(178, 172, 162);
+    }
+
     body {
-      background-color: 333;
-      color: #fff;
+      background-color: var(--color-bg-dark);
+      color: var(--color-fg);
       font-family: sans-serif;
       font-size: 1.5rem;
       text-align: center;
@@ -25,10 +34,10 @@
     }
 
     input[type="submit"] {
-      background-color: #111;
-      border: 1px solid #fff;
+      background-color: var(--color-bg-alt1);
+      border: 1px solid var(--color-bg-alt3);
       border-radius: 5px;
-      color: #fff;
+      color: var(--color-fg);
       cursor: pointer;
       font-size: 1.5rem;
       padding: 0.5rem 1rem;
@@ -36,15 +45,15 @@
     }
 
     input[type="submit"]:hover {
-      background-color: #fff;
-      color: #333;
+      background-color: var(--color-bg-alt2);
+      color: var(--color-fg);
     }
 
     input[type="password"] {
-      background-color: #333;
-      border: 1px solid #fff;
+      background-color: var(--color-bg-alt1);
+      border: 1px solid var(--color-bg-alt3);
       border-radius: 5px;
-      color: #fff;
+      color: var(--color-fg);
       font-size: 1.5rem;
       padding: 0.5rem 1rem;
       transition: background-color 0.3s ease-in-out;
@@ -52,9 +61,9 @@
     }
 
     input[type="password"]:focus {
-      background-color: #fff;
-      color: #333;
-      outline: 2px solid #fff;
+      background-color: var(--color-bg-alt2);
+      color: var(--color-fg);
+      outline: 2px solid var(--color-bg-alt3);
     }
 
     @media screen and (max-width: 768px) {

@@ -86,18 +86,28 @@
   </script>
 
   <style>
+
+* {
+  --color-bg-dark: rgb(13, 14, 14);
+  --color-bg: rgb(24, 26, 27);
+  --color-bg-alt1: rgb(33, 36, 37);
+  --color-bg-alt2: rgb(48, 52, 54);
+  --color-bg-alt3: rgb(64, 69, 72);
+  --color-fg: rgb(178, 172, 162);
+}
+
     body {
-      background-color: #111;
-      color: #fff;
+      background-color: var(--color-bg-dark);
+      color: var(--color-fg);
       font-family: sans-serif;
       font-size: 1.5rem;
     }
 
     button {
-      background-color: #fff;
+      background-color: var(--color-bg-alt1);
       border: 0;
       border-radius: 0.25rem;
-      color: #555;
+      color:  var(--color-fg);
       cursor: pointer;
       font-size: 1rem;
       font-weight: bold;
@@ -106,20 +116,20 @@
     }
 
     button:hover {
-      background-color: #efefef;
+      background-color: var(--color-bg-alt1)
     }
 
     input {
-      background-color: #fff;
+      background-color: var(--color-bg-alt1);
       border: 0;
       border-radius: 0.25rem;
-      color: #555;
+      color: var(--color-fg);
       font-size: 1rem;
       padding: 0.5rem 1rem;
     }
 
     input:focus {
-      outline: 2px solid #fff;
+      outline: 2px solid 
     }
 
     table {
@@ -131,12 +141,12 @@
 
     th,
     td {
-      border: 1px solid #fff;
+      border: 1px solid var(--color-bg-alt2);
       padding: 0.5rem;
     }
 
     th {
-      background-color: #555;
+      background-color: var(--color-bg-alt3);
       font-weight: bold;
       text-align: left;
     }
