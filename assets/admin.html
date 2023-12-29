@@ -105,7 +105,7 @@
     }
 
     async function copyLink(id) {
-      const link = await fetch(`/links/${id}`).then((res) => res.json());
+      const link = await fetch(`/links`).then((res) => res.json()).then((res) => res.find((link) => link.id === id));
 
       navigator.clipboard.writeText(window.location.origin + "/" + link.id);
 
@@ -118,7 +118,7 @@
     }
 
     async function viewLink(id) {
-      const link = await fetch(`/links/${id}`).then((res) => res.json());
+      const link = await fetch(`/links`).then((res) => res.json()).then((res) => res.find((link) => link.id === id));
 
       window.open(link.url, "_blank");
     }
