@@ -76,6 +76,13 @@
       });
     }
 
+    async function getLink(id) {
+      
+      const links = await fetch(`/admin/links`).then((res) => res.json());
+      return links.find((link) => link.id === id);
+
+    }
+
     async function deleteLink(id) {
       await fetch(`/admin/links/${id}`, {
         method: "DELETE",
@@ -105,7 +112,7 @@
     }
 
     async function copyLink(id) {
-      const link = await fetch(`/links`).then((res) => res.json()).then((res) => res.find((link) => link.id === id));
+      const link = getLink(id);
 
       navigator.clipboard.writeText(window.location.origin + "/" + link.id);
 
@@ -118,7 +125,7 @@
     }
 
     async function viewLink(id) {
-      const link = await fetch(`/links`).then((res) => res.json()).then((res) => res.find((link) => link.id === id));
+      const link = getLink(id);
 
       window.open(link.url, "_blank");
     }
