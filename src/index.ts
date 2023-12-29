@@ -99,6 +99,34 @@ app.post("/admin/links", express.urlencoded({ extended: true }), (req, res) => {
     res.sendStatus(200);
 });
 
+app.post("/admin/links/:id", (req, res) => {
+  if (!req.cookies.token) return res.redirect("/admin/login");
+  const token = sessionTokens.get(req.cookies.token);
+  if (!token) return res.redirect("/admin/login");
+
+  if (token.expiresAt < Date.now()) {
+      sessionTokens.delete(req.cookies.token);
+      return res.redirect("/admin/login");
+  }
+
+  if (!req.params.id) return res.sendStatus(400);
+  if (!req.body.url) return res.sendStatus(400);
+
+  const link = links.get(req.params.id);
+
+  if (!link) return res.sendStatus(404);
+
+  links.set(req.params.id, {
+      url: req.body.url,
+      createdAt: link.createdAt,
+      uses: link.uses,
+  });
+  
+  saveLinks();
+
+  res.sendStatus(200);
+});
+
 app.delete("/admin/links/:id", (req, res) => {
     if (!req.cookies.token) return res.redirect("/admin/login");
     const token = sessionTokens.get(req.cookies.token);

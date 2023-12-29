@@ -65,7 +65,7 @@
         url.innerText = link.url;
         id.innerText = link.id;
         clicks.innerText = link.uses;
-        del.innerHTML = `<button onclick="deleteLink('${link.id}')">Delete</button>`;
+        del.innerHTML = `<button onclick="deleteLink('${link.id}')">Delete</button> <button onclick="editLink('${link.id}')">Edit</button> <button onclick="copyLink('${link.id}')">Copy</button> <button onclick="viewLink('${link.id}')">View</button>`;
 
         row.appendChild(url);
         row.appendChild(id);
@@ -82,6 +82,38 @@
       });
 
       updateTable();
+    }
+
+    async function editLink(id) {
+      const url = prompt("Enter a new URL");
+
+      if (!url) {
+        return alert("Please enter a URL");
+      }
+
+      await fetch(`/admin/links/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          url,
+        }),
+      });
+
+      updateTable();
+    }
+
+    async function copyLink(id) {
+      const link = await fetch(`/links/${id}`).then((res) => res.json());
+
+      navigator.clipboard.writeText(link.url);
+    }
+
+    async function viewLink(id) {
+      const link = await fetch(`/links/${id}`).then((res) => res.json());
+
+      window.open(link.url, "_blank");
     }
   </script>
 
