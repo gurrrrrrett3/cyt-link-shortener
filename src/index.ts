@@ -99,7 +99,7 @@ app.post("/admin/links", express.urlencoded({ extended: true }), (req, res) => {
     res.sendStatus(200);
 });
 
-app.post("/admin/links/:id", (req, res) => {
+app.patch("/admin/links/:id", (req, res) => {
   if (!req.cookies.token) return res.redirect("/admin/login");
   const token = sessionTokens.get(req.cookies.token);
   if (!token) return res.redirect("/admin/login");
