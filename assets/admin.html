@@ -127,7 +127,13 @@
     async function viewLink(id) {
       const link = getLink(id);
 
-      window.open(link.url, "_blank");
+      window.open(link.url, "_blank").focus();
+
+      document.title = "Opened! -> "
+
+      setTimeout(() => {
+        document.title = "Link Shortener | admin"
+      }, 1000);
     }
   </script>
 
