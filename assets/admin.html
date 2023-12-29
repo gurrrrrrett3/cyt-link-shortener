@@ -112,22 +112,17 @@
     }
 
     async function copyLink(id) {
-      const link = getLink(id);
-
-      navigator.clipboard.writeText(window.location.origin + "/" + link.id);
+      navigator.clipboard.writeText(`${window.location.origin}/${id}`);
 
       document.getElementById(`copy-${id}`).innerText = "Copied!";
 
       setTimeout(() => {
         document.getElementById(`copy-${id}`).innerText = "Copy";
       }, 1000);
-
     }
 
     async function viewLink(id) {
-      const link = getLink(id);
-
-      window.open(link.url, "_blank").focus();
+      window.open(`${window.location.origin}/${id}`, "_blank").focus();
 
       document.title = "Opened! -> "
 
