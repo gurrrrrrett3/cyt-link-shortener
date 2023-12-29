@@ -60,17 +60,17 @@
         const id = document.createElement("td");
         const url = document.createElement("td");
         const clicks = document.createElement("td");
-        const del = document.createElement("td");
+        const actions = document.createElement("td");
 
         url.innerText = link.url;
         id.innerText = link.id;
         clicks.innerText = link.uses;
-        del.innerHTML = `<button onclick="deleteLink('${link.id}')">Delete</button> <button onclick="editLink('${link.id}')">Edit</button> <button onclick="copyLink('${link.id}')">Copy</button> <button onclick="viewLink('${link.id}')">View</button>`;
+        actions.innerHTML = `<button onclick="deleteLink('${link.id}')">Delete</button> <button onclick="editLink('${link.id}')">Edit</button> <button id="copy-${link.id}" onclick="copyLink('${link.id}')">Copy</button> <button onclick="viewLink('${link.id}')">View</button>`;
 
         row.appendChild(url);
         row.appendChild(id);
         row.appendChild(clicks);
-        row.appendChild(del);
+        row.appendChild(actions);
 
         table.appendChild(row);
       });
@@ -107,7 +107,14 @@
     async function copyLink(id) {
       const link = await fetch(`/links/${id}`).then((res) => res.json());
 
-      navigator.clipboard.writeText(link.url);
+      navigator.clipboard.writeText(window.location.origin + "/" + link.id);
+
+      document.getElementById(`copy-${id}`).innerText = "Copied!";
+
+      setTimeout(() => {
+        document.getElementById(`copy-${id}`).innerText = "Copy";
+      }, 1000);
+
     }
 
     async function viewLink(id) {
